@@ -55,7 +55,7 @@ class SuratPerjalananSeeder extends Seeder
         $sppd_id = DB::getPdo()->lastInsertId();
         $max = $faker->numberBetween($min = 1, $max = 3);
 
-        for ($i=0; $i < $max; $i++) { 
+        for ($j=0; $j < $max; $j++) { 
           DB::table('pegawai_sppd')->insert([ 
             'id_pegawai' =>  $this->getPegawaiID(),
             'id_sppd' => $sppd_id,
