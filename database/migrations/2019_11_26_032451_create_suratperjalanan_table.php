@@ -13,13 +13,14 @@ class CreateSuratperjalananTable extends Migration
      */
     public function up()
     {
-        Schema::create('SuratPerjalanan', function (Blueprint $table) {
+        Schema::create('surat_perjalanan', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('biaya_perjalanan');
             $table->unsignedBigInteger('id_pegawai');
             $table->unsignedBigInteger('id_pembuat_komitmen');
             $table->unsignedBigInteger('id_kabupaten');
-            $table->unsignedBigInteger('id_mata_anggaran');
-            $table->unsignedBigInteger('id_pembebanan_anggaran')->nullable();
+            $table->unsignedBigInteger('id_mata_anggaran')->nullable();
+            $table->unsignedBigInteger('id_pembebanan_anggaran');
             $table->unsignedBigInteger('id_waktu_perjalanan');
             $table->unsignedBigInteger('id_kendaraan');
             $table->unsignedBigInteger('updated_by');
