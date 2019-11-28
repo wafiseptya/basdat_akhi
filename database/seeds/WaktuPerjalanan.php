@@ -13,7 +13,7 @@ class WaktuPerjalanan extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('id_ID');
+      $faker = Faker::create('id_ID');
         
     	for($i = 0; $i < 20; $i++){
             $tanggal_dikeluarkan_surat = $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null);
@@ -27,9 +27,14 @@ class WaktuPerjalanan extends Seeder
                 'tanggal_berangkat' => $tanggal_berangkat,
                 'tanggal_harus_berangkat' => $tanggal_harus_berangkat,
                 'jumlah_hari_menginap' => rand(1,15),
-                'tanggal_dikeluarkan_surat' =>$tanggal_dikeluarkan_surat
+                'tanggal_dikeluarkan_surat' =>$tanggal_dikeluarkan_surat,
+                'updated_by'=>$this->getID()
     		]);
  
     	}
+    }
+    private function getID() {
+      $user = \App\User::inRandomOrder()->first();
+      return $user->id;
     }
 }

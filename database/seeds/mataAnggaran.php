@@ -19,13 +19,17 @@ class mataAnggaran extends Seeder
  
     	      // insert data ke table pegawai menggunakan Faker
     		DB::table('mata_anggaran')->insert([
-                'jenis' => $mata_anggaran[$i],
-                'created_at' => now(),
-                'updated_at' => now(),
-                
+            'jenis' => $mata_anggaran[$i],
+            'created_at' => now(),
+            'updated_at' => now(),
+            'updated_by'=>$this->getID()
     		]);
  
     	}
  
+    }
+    private function getID() {
+      $user = \App\User::inRandomOrder()->first();
+      return $user->id;
     }
 }

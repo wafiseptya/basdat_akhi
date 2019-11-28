@@ -18,7 +18,9 @@ class CreateLogsTable extends Migration
             $table->ipAddress('ipAddress');
             $table->text('oldData');
             $table->text('newData');
+            $table->unsignedBigInteger('user_id');
             $table->softDeletes();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

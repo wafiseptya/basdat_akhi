@@ -21,6 +21,8 @@ class CreatePegawaiTable extends Migration
             $table->string('jabatan');
             $table->string('instansi');
             $table->softDeletes();
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

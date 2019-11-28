@@ -17,6 +17,8 @@ class CreateKabupatenTable extends Migration
             $table->bigIncrements('id');
             $table->string('city_name');
             $table->softDeletes();
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

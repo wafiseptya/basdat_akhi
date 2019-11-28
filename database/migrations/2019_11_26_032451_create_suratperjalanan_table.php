@@ -30,6 +30,7 @@ class CreateSuratperjalananTable extends Migration
             $table->foreign('id_pembebanan_anggaran')->references('id')->on('pembebanan_anggaran');
             $table->foreign('id_waktu_perjalanan')->references('id')->on('waktu_perjalanan');
             $table->foreign('id_kendaraan')->references('id')->on('kendaraan');
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

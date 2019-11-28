@@ -16,9 +16,15 @@ class KabupatenTableSeeder extends Seeder
         foreach ($kabupaten_list as $row) {
           $row = 
           DB::table('kabupaten')->insert([
-              'city_name'=>$row
+              'city_name'=>$row,
+              'updated_by'=>$this->getID()
           ]);
 
         }
+    }
+
+    private function getID() {
+      $user = \App\User::inRandomOrder()->first();
+      return $user->id;
     }
 }

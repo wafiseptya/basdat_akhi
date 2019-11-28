@@ -19,8 +19,13 @@ class KendaraanSeeder extends Seeder
         
     	for($i = 0; $i < count($kendaraan); $i++){
     		DB::table('kendaraan')->insert([
-    			'jenis' => $kendaraan[$i]
+    			'jenis' => $kendaraan[$i],
+          'updated_by'=>$this->getID()
     		]);
     	}
+    }
+    private function getID() {
+      $user = \App\User::inRandomOrder()->first();
+      return $user->id;
     }
 }
