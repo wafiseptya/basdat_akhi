@@ -16,15 +16,14 @@ class CreateSuratperjalananTable extends Migration
         Schema::create('surat_perjalanan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('biaya_perjalanan');
-            $table->unsignedBigInteger('id_pegawai');
             $table->unsignedBigInteger('id_pembuat_komitmen');
             $table->unsignedBigInteger('id_kabupaten');
             $table->unsignedBigInteger('id_mata_anggaran')->nullable();
             $table->unsignedBigInteger('id_pembebanan_anggaran');
             $table->unsignedBigInteger('id_waktu_perjalanan');
             $table->unsignedBigInteger('id_kendaraan');
+            $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('updated_by');
-            $table->foreign('id_pegawai')->references('id')->on('pegawai');
             $table->foreign('id_pembuat_komitmen')->references('id')->on('pejabat_pembuat_komitmen');
             $table->foreign('id_kabupaten')->references('id')->on('kabupaten');
             $table->foreign('id_mata_anggaran')->references('id')->on('mata_anggaran');

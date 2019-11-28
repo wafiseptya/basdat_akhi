@@ -13,7 +13,7 @@ class LogsSeeder extends Seeder
     public function run()
     {
       $faker = Faker::create();
-      for ($i=0; $i < 1000; $i++) { 
+      for ($i=0; $i < 100; $i++) { 
         DB::table('logs')->insert([
           'ipAddress' => $faker->ipv4,
           'oldData' => json_encode($faker->words(30)),

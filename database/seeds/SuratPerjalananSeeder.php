@@ -15,34 +15,67 @@ class SuratPerjalananSeeder extends Seeder
     {
       
       $faker = Faker::create('id_ID');
-    	for($i = 0; $i < 1000; $i++){
+    	for($i = 0; $i < 100; $i++){
         $arr = $this->getAnggaran();
         $pembebanan = $arr['pembebanan'];
         $mata = $arr['mata'];
         $duit = $faker->numberBetween($min = 100000, $max = 50000000);
         $duit = round($duit, -3);
+        $uid = $this->getID();
+
+        $tanggal_dikeluarkan_surat = $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null);
+        $tambah_hari = rand(1,7);
+        $tambah = date('Y/m/d',strtotime(date_format($tanggal_dikeluarkan_surat, "Y/m/d").' + '.$tambah_hari.' days'));
+        $tanggal_harus_berangkat = $faker->dateTimeBetween($startDate = $tanggal_dikeluarkan_surat, $endDate = $tambah, $timezone = null);
+        $tanggal_berangkat = $faker->dateTimeBetween($startDate = $tanggal_dikeluarkan_surat, $endDate = $tanggal_harus_berangkat, $timezone = null);
+
+    		DB::table('waktu_perjalanan')->insert([
+                'lama_perjalanan' => rand(1,5),
+                'tanggal_berangkat' => $tanggal_berangkat,
+                'tanggal_harus_berangkat' => $tanggal_harus_berangkat,
+                'jumlah_hari_menginap' => rand(1,15),
+                'tanggal_dikeluarkan_surat' =>$tanggal_dikeluarkan_surat,
+                'updated_by'=>$uid
+        ]);
+        
+        $waktu_id = DB::getPdo()->lastInsertId();
+        
         DB::table('surat_perjalanan')->insert([
             'biaya_perjalanan' => $duit,
-            'id_pegawai' => $this->getPegawaiID(),
             'id_pembuat_komitmen' => $this->getPembuatKomitmen(),
-            'id_kabupaten' => $this->getPegawaiID(),
+            'id_kabupaten' => $this->getKabupaten(),
             'id_mata_anggaran' => $mata,
             'id_pembebanan_anggaran' =>  $pembebanan,
-            'id_waktu_perjalanan' => $this->getWaktu(),
+            'id_waktu_perjalanan' => $waktu_id,
             'id_kendaraan' => $this->getKendaraan(),
-            'updated_by'=> $this->getID()
+            'keterangan' => $faker->sentence($nbWords = 10, $variableNbWords = true), 
+            'updated_by' => $uid
         ]);
+
+        $sppd_id = DB::getPdo()->lastInsertId();
+        $max = $faker->numberBetween($min = 1, $max = 3);
+
+        for ($i=0; $i < $max; $i++) { 
+          DB::table('pegawai_sppd')->insert([ 
+            'id_pegawai' =>  $this->getPegawaiID(),
+            'id_sppd' => $sppd_id,
+            'updated_by' => $uid
+          ]);
+        }
+
+
       }
+    }
+
+    
+    private function getPegawaiID() {
+      $data = \App\Pegawai::inRandomOrder()->first();
+      return $data->id;
     }
 
     private function getID() {
         $user = \App\User::inRandomOrder()->first();
         return $user->id;
-    }
-
-    private function getPegawaiID() {
-        $data = \App\Pegawai::inRandomOrder()->first();
-        return $data->id;
     }
     private function getPembuatKomitmen() {
         $data = DB::table('pejabat_pembuat_komitmen')

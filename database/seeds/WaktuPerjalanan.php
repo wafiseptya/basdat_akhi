@@ -15,12 +15,12 @@ class WaktuPerjalanan extends Seeder
     {
       $faker = Faker::create('id_ID');
         
-    	for($i = 0; $i < 20; $i++){
-            $tanggal_dikeluarkan_surat = $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null);
-            $tambah_hari = rand(1,7);
-            $tambah = date('Y/m/d',strtotime(date_format($tanggal_dikeluarkan_surat, "Y/m/d").' + '.$tambah_hari.' days'));
-            $tanggal_harus_berangkat = $faker->dateTimeBetween($startDate = $tanggal_dikeluarkan_surat, $endDate = $tambah, $timezone = null);
-            $tanggal_berangkat = $faker->dateTimeBetween($startDate = $tanggal_dikeluarkan_surat, $endDate = $tanggal_harus_berangkat, $timezone = null);
+    	for($i = 0; $i < 100; $i++){
+        $tanggal_dikeluarkan_surat = $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null);
+        $tambah_hari = rand(1,7);
+        $tambah = date('Y/m/d',strtotime(date_format($tanggal_dikeluarkan_surat, "Y/m/d").' + '.$tambah_hari.' days'));
+        $tanggal_harus_berangkat = $faker->dateTimeBetween($startDate = $tanggal_dikeluarkan_surat, $endDate = $tambah, $timezone = null);
+        $tanggal_berangkat = $faker->dateTimeBetween($startDate = $tanggal_dikeluarkan_surat, $endDate = $tanggal_harus_berangkat, $timezone = null);
 
     		DB::table('waktu_perjalanan')->insert([
                 'lama_perjalanan' => rand(1,5),
