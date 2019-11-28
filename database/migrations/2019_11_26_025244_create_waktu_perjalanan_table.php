@@ -20,7 +20,9 @@ class CreateWaktuPerjalananTable extends Migration
             $table->date('tanggal_harus_berangkat');
             $table->integer('jumlah_hari_menginap');
             $table->date('tanggal_dikeluarkan_surat');
-            $table->timestamps();
+            $table->softDeletes();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

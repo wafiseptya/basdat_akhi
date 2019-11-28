@@ -16,7 +16,9 @@ class CreateKabupatenTable extends Migration
         Schema::create('kabupaten', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('city_name');
-            $table->timestamps();
+            $table->softDeletes();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 
