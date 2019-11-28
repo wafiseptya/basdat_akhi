@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(KendaraanSeeder::class);
         $this->call(mataAnggaran::class);
         $this->call(WaktuPerjalanan::class);
+        $this->call(PegawaiSeeder::class);
     }
 }
