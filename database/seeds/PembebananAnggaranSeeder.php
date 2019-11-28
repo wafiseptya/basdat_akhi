@@ -14,14 +14,21 @@ class PembebananAnggaranSeeder extends Seeder
         //
         DB::table('pembebanan_anggaran')->insert([
         [
-            'kategori'=>'APBD DESA'
+            'kategori'=>'APBD DESA',
+            'updated_by'=>$this->getID()
         ],
         [
-            'kategori'=>'APBD Kabupaten'
+            'kategori'=>'APBD Kabupaten',
+            'updated_by'=>$this->getID()
         ],
         [
-            'kategori'=>'Dan Lain-lain'
+            'kategori'=>'Dan Lain-lain',
+            'updated_by'=>$this->getID()
         ],
         ]);
+    }
+    private function getID() {
+      $user = \App\User::inRandomOrder()->first();
+      return $user->id;
     }
 }

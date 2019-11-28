@@ -22,8 +22,13 @@ class PegawaiSeeder extends Seeder
                 'name_pegawai'  =>$faker->name,
                 'pangkat' =>$faker->word,
                 'jabatan' =>$faker->jobTitle,
-                'instansi' =>$faker->company
+                'instansi' =>$faker->company,
+                'updated_by'=>$this->getID()
             ]);
         }
+    }
+    private function getID() {
+      $user = \App\User::inRandomOrder()->first();
+      return $user->id;
     }
 }
